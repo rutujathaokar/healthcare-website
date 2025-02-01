@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/medicinedelivery/style.css">
+    <title>Order Confirmation</title>
+</head>
+<body>
+    <header>
+        <h1>Order Confirmation</h1>
+    </header>
+    <main>
+        <% if (order && order.items && order.items.length > 0) { %>
+            <h2>Thank you for your order!</h2>
+            <p><strong>Order ID:</strong> <%= order.id %></p>
+            <p><strong>Delivery Address:</strong> <%= order.delivery_address %></p>
+            <p><strong>Total Price:</strong> ₹<%= order.total_price %></p>
+            
+            <h3>Ordered Items:</h3>
+            <ul>
+                <% order.items.forEach(function(item) { %>
+                    <li>
+                        <strong><%= item.name %></strong> - ₹<%= item.price %> x <%= item.quantity %>
+                    </li>
+                <% }); %>
+            </ul>
+        <% } else { %>
+            <p>It seems there was an issue with your order. Please try again.</p>
+        <% } %>
+    </main>
+    <footer>
+        <p>&copy; 2024 Medicine Delivery</p>
+    </footer>
+</body>
+</html>

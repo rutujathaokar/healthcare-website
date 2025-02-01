@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Information</title>
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f8ff;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container Styling */
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header Styling */
+        h1 {
+            color: #0066cc;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 10px;
+        }
+
+        /* Label and Dropdown Styling */
+        label {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border: 1px solid #0066cc;
+            border-radius: 5px;
+            background-color: #e6f2ff;
+            color: #003366;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        /* Button Styling */
+        button {
+            padding: 12px 20px;
+            background-color: #0066cc;
+            color: #fff;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #004d99;
+        }
+
+        /* Medicine Details Section */
+        #medicineDetails {
+            margin-top: 30px;
+            background-color: #f0f8ff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        #medicineDetails h2 {
+            color: #0066cc;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        #medicineDetails p {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 50px;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Medicine Information</h1>
+
+        <!-- Dropdown for medicine selection -->
+        <label for="medicineName">Select Medicine:</label>
+        <select id="medicineName">
+            <option value="">-- Select a medicine --</option>
+            <!-- Options will be added dynamically -->
+        </select>
+
+        <button onclick="getMedicineInfo()">Get Details</button>
+
+        <div id="medicineDetails">
+            <h2>Details</h2>
+            <p id="name"></p>
+            <p id="description"></p>
+            <p id="dosage"></p>
+            <p id="sideEffects"></p>
+        </div>
+    </div>
+
+    <footer>© 2024 Healthcare Website - All Rights Reserved</footer>
+
+    <script>
+        const medicines = <%- JSON.stringify(medicines) %>; // Embed medicine data from the server
+
+        // Populate the dropdown list with medicine names
+        const selectElement = document.getElementById("medicineName");
+        medicines.forEach(medicine => {
+            const option = document.createElement("option");
+            option.value = medicine.name;
+            option.textContent = medicine.name;
+            selectElement.appendChild(option);
+        });
+
+        // Function to display selected medicine details
+        function getMedicineInfo() {
+            const selectedName = selectElement.value;
+            const medicine = medicines.find(m => m.name === selectedName);
+
+            if (medicine) {
+                document.getElementById("name").innerText = `Name: ${medicine.name}`;
+                document.getElementById("description").innerText = `Description: ${medicine.description}`;
+                document.getElementById("dosage").innerText = `Dosage: ${medicine.dosage}`;
+                document.getElementById("sideEffects").innerText = `Side Effects: ${medicine.side_effects}`;
+                document.getElementById("medicineDetails").style.display = 'block'; // Show the details section
+            } else {
+                document.getElementById("name").innerText = "Please select a valid medicine.";
+                document.getElementById("description").innerText = "";
+                document.getElementById("dosage").innerText = "";
+                document.getElementById("sideEffects").innerText = "";
+                document.getElementById("medicineDetails").style.display = 'none'; // Hide the details section
+            }
+        }
+    </script>
+</body>
+</html>

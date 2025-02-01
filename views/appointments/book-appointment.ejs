@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Appointment</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f0f8ff; margin: 0; padding: 20px;">
+
+  <h1 style="color: #0073e6; text-align: center; margin-bottom: 20px;">Book an Appointment</h1>
+
+  <% if (error) { %>
+    <p style="color: red; text-align: center;"><%= error %></p>
+  <% } %>
+
+  <form action="/appointments/book-appointment" method="POST" style="max-width: 500px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    
+    <label for="doctor" style="display: block; color: #0073e6; margin-bottom: 5px;">Select Doctor:</label>
+    <select name="doctor" id="doctor" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px;">
+      <% doctors.forEach(doctor => { %>
+        <option value="<%= doctor.name %>" <%= selectedDoctor === doctor.name ? "selected" : "" %>>
+          <%= doctor.name %> - <%= doctor.specialization %>
+        </option>
+      <% }); %>
+    </select>
+
+    <label for="name" style="display: block; color: #0073e6; margin-bottom: 5px;">Name:</label>
+    <input type="text" name="name" id="name" value="<%= name %>" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px;">
+
+    <label for="email" style="display: block; color: #0073e6; margin-bottom: 5px;">Email:</label>
+    <input type="email" name="email" id="email" value="<%= email %>" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px;">
+
+    <label for="phone" style="display: block; color: #0073e6; margin-bottom: 5px;">Phone:</label>
+    <input type="text" name="phone" id="phone" value="<%= phone %>" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px;">
+
+    <label for="appointment_date" style="display: block; color: #0073e6; margin-bottom: 5px;">Date:</label>
+    <input type="date" name="appointment_date" id="appointment_date" value="<%= appointment_date %>" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px;">
+
+    <label for="appointment_time" style="display: block; color: #0073e6; margin-bottom: 5px;">Time:</label>
+    <input type="time" name="appointment_time" id="appointment_time" value="<%= appointment_time %>" required style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px;">
+
+    <label for="symptoms" style="display: block; color: #0073e6; margin-bottom: 5px;">Symptoms:</label>
+    <textarea name="symptoms" id="symptoms" required style="width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 5px;"></textarea>
+
+    <button type="submit" style="width: 100%; padding: 10px; background-color: #0073e6; color: #ffffff; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">Book Appointment</button>
+  </form>
+</body>
+</html>

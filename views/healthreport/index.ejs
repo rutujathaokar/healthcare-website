@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Reports</title>
+  <style>
+    /* Reset margin and padding */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fc;
+      color: #333;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2a6ebb;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #2a6ebb;
+      margin-bottom: 10px;
+    }
+
+    /* List styles */
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    li {
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin: 10px 0;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    li a {
+      color: #2a6ebb;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    li a:hover {
+      background-color: #2a6ebb;
+      color: white;
+    }
+
+    /* Form styles */
+    form {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 600px;
+      margin: 30px auto;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    form input[type="text"],
+    form textarea,
+    form input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    form button {
+      background-color: #2a6ebb;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s;
+    }
+
+    form button:hover {
+      background-color: #1e4a8b;
+    }
+
+    /* Media query for responsiveness */
+    @media (max-width: 768px) {
+      form {
+        width: 90%;
+      }
+
+      li {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      li a {
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Health Reports</h1>
+
+  <!-- Display list of uploaded reports -->
+  <h2>Uploaded Reports</h2>
+  <ul>
+    <% reports.forEach(report => { %>
+      <li>
+        <div>
+          <strong><%= report.report_name %></strong> - <%= report.report_description %>
+        </div>
+        <a href="/healthreports/download/<%= report.id %>">Download</a>
+      </li>
+    <% }) %>
+  </ul>
+
+  <!-- Upload Report Form -->
+  <h2>Upload a New Health Report</h2>
+  <form action="/healthreports/upload" method="POST" enctype="multipart/form-data">
+    <label for="report_name">Report Name:</label>
+    <input type="text" name="report_name" required>
+
+    <label for="report_description">Description:</label>
+    <textarea name="report_description" required></textarea>
+
+    <label for="report">Upload Report:</label>
+    <input type="file" name="report" required>
+
+    <button type="submit">Upload Report</button>
+  </form>
+
+</body>
+</html>
+

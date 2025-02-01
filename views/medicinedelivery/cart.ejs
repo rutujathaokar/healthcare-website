@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/medicinedelivery/style.css">
+    <title>Your Cart</title>
+</head>
+<body>
+    <header>
+        <div class="logo">Medicine Delivery</div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/medicinedelivery/products">Shop</a></li>
+                <li><a href="/medicinedelivery/cart">Cart</a></li>
+                <li><a href="/medicinedelivery/contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="cart-container">
+            <h1>Your Cart</h1>
+            <% if (cart && cart.length > 0) { %>
+                <div class="cart-items">
+                    <% cart.forEach(function(item) { %>
+                        <div class="cart-item">
+                            <h3><%= item.name %></h3>
+                            <p>Price: ₹<%= item.price %></p>
+                            <p>Quantity: <%= item.quantity %></p>
+                        </div>
+                    <% }); %>
+                </div>
+                <div class="cart-summary">
+                    <form action="/medicinedelivery/order" method="POST">
+                        <label for="delivery_address">Delivery Address:</label>
+                        <input 
+                            type="text" 
+                            name="delivery_address" 
+                            id="delivery_address" 
+                            placeholder="Enter your address" 
+                            required>
+                        
+                        <label for="total_price">Total Price:</label>
+                        <input 
+                            type="number" 
+                            name="total_price" 
+                            id="total_price" 
+                            value="<%= cart.reduce((acc, item) => acc + (item.price * item.quantity), 0) %>" 
+                            readonly>
+
+                        <input 
+                            type="hidden" 
+                            name="order_items" 
+                            value='<%- JSON.stringify(cart.map(item => ({
+                                medicine_id: item.id,
+                                price: item.price,
+                                quantity: item.quantity
+                            }))) %>'>
+
+                        <button type="submit" class="btn">Place Order</button>
+                    </form>
+                </div>
+            <% } else { %>
+                <p class="empty-cart">Your cart is empty.</p>
+            <% } %>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Medicine Delivery. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://static.vecteezy.com/system/resources/previews/000/618/895/original/health-people-care-logo-vector-template.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Healthcare Website</title>
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <nav>
+      <div class="logo">HealthCare</div>
+      <ul>
+        <li><a href="/appointments">Book an Appointment</a></li>
+        <li><a href="/medicinedelivery">Medicine Delivery</a></li>
+        <li><a href="/fcm">Free Clinic Checkup</a></li>
+        <li><a href="/labs/">Nearest Labs</a></li>
+        <li><a href="/beds">Beds Availability</a></li>
+        <% if (!user) { %>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/signup">Signup</a></li>
+        <% } else { %>
+          <!-- Display initials as a clickable logo -->
+          <li class="user-logo">
+            <% 
+              const name = user.name || "";
+              const initials = name.split(" ").map(word => word.charAt(0).toUpperCase()).join("");
+            %>
+            <%= initials || "U" %> <!-- Default to "U" if initials are not available -->
+            <div class="dropdown-content">
+              <a href="/logout" class="logout">Logout</a>
+            </div>
+          </li>
+        <% } %>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Welcome to HealthCare Services</h1>
+        <p>Your one-stop solution for all healthcare needs.</p>
+        <a href="#services" class="button explore-button">Explore Our Services</a>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+
+      <div class="service-card" id="monitoring">
+        <h3>Appointment</h3>
+        <p>Schedule an appointment with our expert doctors at your convenience.</p>
+        <a href="/appointments" class="button">Learn More</a>
+      </div>
+      <div class="service-card" id="medicine">
+        <h3>Medicine Delivery</h3>
+        <p>Get your medicines delivered right to your doorstep.</p>
+        <a href="/medicinedelivery" class="button">Learn More</a>
+      </div>
+      <div class="service-card" id="checkup">
+        <h3>Free Clinic Checkup</h3>
+        <p>Avail free health checkups at our partnered clinics.</p>
+        <a href="/fcm" class="button">Learn More</a>
+      </div>
+      <div class="service-card" id="labs">
+        <h3>Nearest Labs</h3>
+        <p>Find diagnostic labs near you for quick and easy testing.</p>
+        <a href="/labs" class="button">Learn More</a>
+      </div>
+      <div class="service-card" id="beds">
+        <h3>Beds Availability</h3>
+        <p>Check real-time availability of hospital beds in your area.</p>
+        <a href="/beds" class="button">Learn More</a>
+      </div>
+    </section>
+
+    <style>
+      /* Chatbot Styles */
+      #chatbot {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 300px;
+        max-height: 400px;
+        background-color: #f4f4f4;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        display: none;
+        flex-direction: column;
+        z-index: 1000;
+      }
+  
+      #chatbot-header {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+        border-radius: 10px 10px 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+  
+      #chatbot-header h3 {
+        margin: 0;
+        font-size: 16px;
+      }
+  
+      #chatbot-header button {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+      }
+  
+      #chatbot-messages {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 10px;
+      }
+  
+      #chatbot-input {
+        display: flex;
+        padding: 10px;
+        border-top: 1px solid #ccc;
+      }
+  
+      #chatbot-input input {
+        flex-grow: 1;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+  
+      #chatbot-input button {
+        padding: 5px 10px;
+        margin-left: 5px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+  
+      /* Chatbot Open Button */
+      #open-chatbot {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        cursor: pointer;
+        z-index: 1001;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="open-chatbot">💬</button>
+  
+    <div id="chatbot">
+      <div id="chatbot-header">
+        <h3>Chatbot</h3>
+        <button id="close-chatbot">&times;</button>
+      </div>
+      <div id="chatbot-messages"></div>
+      <div id="chatbot-input">
+        <input type="text" id="user-input" placeholder="Type your question...">
+        <button id="send-button">Send</button>
+      </div>
+    </div>
+  
+    <script>
+      // Chatbot Questions and Answers
+      const questionsAnswers = {
+        "What is healthcare?": "Healthcare involves the organized provision of medical care to individuals or a community.",
+        "How to book an appointment?": "You can book an appointment using the 'Book Appointment' section on our website.",
+        "What is medicine delivery?": "Medicine delivery allows you to order medicines online and get them delivered to your home.",
+        "Where can I find nearest labs?": "Visit the 'Nearest Labs' section on our website to find diagnostic labs near you.",
+        "How to check bed availability?": "Use the 'Beds Availability' section to view real-time hospital bed availability.",
+      
+      };
+  
+      // Chatbot Elements
+      const openChatbotButton = document.getElementById("open-chatbot");
+      const closeChatbotButton = document.getElementById("close-chatbot");
+      const chatbot = document.getElementById("chatbot");
+      const chatbotMessages = document.getElementById("chatbot-messages");
+      const userInput = document.getElementById("user-input");
+      const sendButton = document.getElementById("send-button");
+  
+      // Open Chatbot
+      openChatbotButton.addEventListener("click", () => {
+        chatbot.style.display = "flex";
+        openChatbotButton.style.display = "none";
+      });
+  
+      // Close Chatbot
+      closeChatbotButton.addEventListener("click", () => {
+        chatbot.style.display = "none";
+        openChatbotButton.style.display = "block";
+      });
+  
+      // Send Message
+      sendButton.addEventListener("click", () => {
+        const userText = userInput.value.trim();
+        if (userText) {
+          addMessage("user", userText);
+          getBotResponse(userText);
+          userInput.value = "";
+        }
+      });
+  
+      // Handle Enter Key
+      userInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          sendButton.click();
+        }
+      });
+    </script>
+    <section id="remote-monitoring">
+      <h2>Remote Monitoring</h2>
+      <div class="remote-monitoring-wrapper">
+        <!-- Symptom Checker -->
+        <div class="service-card" id="symptom-checker">
+          <h3>Symptom Checker</h3>
+          <p>Input your symptoms to receive initial health suggestions or connect with a doctor.</p>
+          <a href="/symptom" class="button">Try Now</a>
+        </div>
+        <!-- Video Consultations -->
+        <div class="service-card" id="video-consultations">
+          <h3>Video Consultations</h3>
+          <p>Start telemedicine sessions with experienced doctors from the comfort of your home.</p>
+          <a href="https://meet.jit.si/VocalLeftsProsecuteAfterwards?jwt=eyJhbGciOiJSUzI1NiIsImtpZCI6ImE3MWI1MTU1MmI0ODA5OWNkMGFkN2Y5YmZlNGViODZiMDM5NmUxZDEiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiUnV0dWphIFRoYW9rYXIiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jTHloMnRnOUxkWTdKQ0RVMnVtZk9veldwZmIyTVllMW1sUkJfdTh1eTBPZGFpY3BnPXM5Ni1jIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL21lZXQtaml0LXNpLTY2Y2JkIiwiYXVkIjoibWVldC1qaXQtc2ktNjZjYmQiLCJhdXRoX3RpbWUiOjE3MzUxNDQ1MzYsInVzZXJfaWQiOiJqQUd1SzFrUXNLUFRiZDZSUDN2Y01IMUJvZ2gxIiwic3ViIjoiakFHdUsxa1FzS1BUYmQ2UlAzdmNNSDFCb2doMSIsImlhdCI6MTczNTE0NDgwNCwiZXhwIjoxNzM1MTQ4NDA0LCJlbWFpbCI6InRoYW9rYXJydXR1amExOEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjEwNDU2Nzc0NTM0OTI1NTcwMDQ2MiJdLCJlbWFpbCI6WyJ0aGFva2FycnV0dWphMThAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.reqaA039-KH_JLuveBp48FNrx7j4y9o5thyBX8yZ61vnVIaN3tgBZ-AJPM9n9RwAf8jYTGegyLqxAJiWL1qgkEqPvdzcHVyC7JIthNj9ligyCrTHK5RjOcvA6Q85iGjpIkdk71cYibaI6dcJQFEo_tNjFIAd-qzgviqSNZoP8h5SUtovg_roBgUacdyUKi1lcyUoEkfFxjVDd8RMAHbQYWgAgInufSOL2MjiGt1kg4cGP47_FuovkyesbeWXF-kQKH9YRJ2e7pAbTcF9amSZYMsiD91oxbQ3W2-8egcSFWgjUrF4mjmmjZ2tdy2cJmozros_D4TfTo4wDmjiCwjqeg " class="button">Consult Now</a>
+        </div>
+        <!-- Health Reports -->
+        <div class="service-card" id="health-reports">
+          <h3>Health Reports</h3>
+          <p>Upload your medical reports for analysis or download shared health documents.</p>
+          <a href="/healthreports" class="button">Manage Reports</a>
+        </div>
+        <!-- Daily Health Tracking -->
+        <div class="service-card" id="daily-health-tracking">
+          <h3>Daily Health Tracking</h3>
+          <p>Monitor your vital health stats like heart rate,and more from home.</p>
+          <a href="/health-tracking" class="button">Learn More</a>
+        </div>
+
+        <div class="service-card" id="alert-system">
+          <h3>Know your Medicines</h3>
+          <p>detailed information about their prescribed medicines.</p>
+          <a href="/medicines" class="button">Learn More</a>
+        </div> 
+      </div>
+    </section>
+    
+
+    
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+      <h2>What Our Users Say</h2>
+      <div class="testimonial">
+        <p>"HealthCare Services transformed the way I manage my health. Remote monitoring and timely medicine delivery have been a game changer!"</p>
+        <span>- John Doe</span>
+      </div>
+      <div class="testimonial">
+        <p>"Thanks to the free clinic checkup, I got the health advice I needed without any hassle."</p>
+        <span>- Jane Smith</span>
+      </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews">
+      <h2>Submit Your Review</h2>
+      <p>Your feedback helps us improve our services!</p>
+      <form action="/submit-review" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <textarea name="review" placeholder="Your Review" required></textarea>
+        <button type="submit" class="button">Submit Review</button>
+      </form>
+      
+      <h3>User Reviews</h3>
+      <div class="reviews-list">
+        <% reviews.forEach(function(review) { %>
+          <div class="review">
+            <p><strong><%= review.name %></strong></p>
+            <p><%= review.review_text %></p>
+          </div>
+        <% }) %>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>How do I schedule a remote health monitoring session?</h3>
+        <p>You can schedule a remote monitoring session through our app by selecting the date and time that works for you.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is there a charge for the free clinic checkups?</h3>
+        <p>No, the clinic checkups are completely free for all registered users.</p>
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section id="cta">
+      <h2>Ready to take control of your health?</h2>
+      <a href="/signup" class="button">Sign Up Now</a>
+    </section>
+
+    <!-- Partners Section -->
+    <!-- <section id="partners">
+      <h2>Our Trusted Partners</h2>
+      <div class="partner-logo">
+        <img src="https://tukuz.com/wp-content/uploads/2019/08/national-institute-for-health-research-nihr-logo-vector.png" alt="Partner 1">
+      </div>
+      <div class="partner-logo">
+        <img src="https://www.48hourslogo.com/48hourslogo_data/2018/05/28/73650_1527454163.png" alt="Partner 2">
+      </div>
+    </section> -->
+
+    <!-- Contact Section -->
+    <!-- <section id="contact">
+      <h2>Contact Us</h2>
+      <form action="/contact" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button type="submit" class="button">Submit</button>
+      </form>
+    </section> -->
+
+    <!-- Newsletter Section -->
+    <!-- <section id="newsletter">
+      <h2>Stay Updated!</h2>
+      <form action="/subscribe" method="POST">
+        <input type="email" name="email" placeholder="Enter your email" required>
+        <button type="submit" class="button">Subscribe</button>
+      </form>
+    </section> -->
+
+    <!-- Blog Section -->
+    <section id="blog">
+      <h2>Health Tips</h2>
+      <div class="blog-post">
+        <h3>5 Ways to Stay Healthy During Winter</h3>
+        <p>Here are some tips to keep yourself healthy as the season changes...</p>
+        <a href="https://www.bhf.org.uk/informationsupport/heart-matters-magazine/wellbeing/stay-healthy-winter" class="button">Read More</a>
+      </div>
+      <div class="blog-post">
+        <h3>How Remote Monitoring Can Help You Manage Chronic Diseases</h3>
+        <p>Learn about how remote monitoring can help you stay on top of your health...</p>
+        <a href="https://www.healtharc.io/blogs/the-role-of-remote-patient-monitoring-in-chronic-disease-management/" class="button">Read More</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2024 HealthCare Services. All rights reserved.</p>
+  </footer>
+</body>
+</html>

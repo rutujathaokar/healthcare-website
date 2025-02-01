@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptom Checker</title>
+    <style>
+        nav {
+  background-color: #004aad;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  /* position: sticky; */
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav .logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+}
+
+nav ul li {
+  margin-left: 25px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #ffd700;
+  transform: scale(1.05);
+}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Alice blue background */
+            color: #003366; /* Dark blue text */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #e6f7ff; /* Light blue background */
+            border: 1px solid #b3e0ff; /* Light blue border */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #003366;
+        }
+
+        form {
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            margin: 5px 0;
+        }
+
+        button {
+            background-color: #007bff; /* Blue button */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue */
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<nav>
+    <div class="logo">HealthCare</div>
+    <ul>
+      <li><a href="/appointments">Book an Appointment</a></li>
+      <li><a href="/medicinedelivery">Medicine Delivery</a></li>
+      <li><a href="/fcm">Free Clinic Checkup</a></li>
+      <li><a href="/labs/">Nearest Labs</a></li>
+      <li><a href="/beds">Beds Availability</a></li>
+      <% if (!user) { %>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/signup">Signup</a></li>
+      <% } else { %>
+        <!-- Display initials as a clickable logo -->
+        <li class="user-logo">
+          <% 
+            const name = user.name || "";
+            const initials = name.split(" ").map(word => word.charAt(0).toUpperCase()).join("");
+          %>
+          <%= initials || "U" %> <!-- Default to "U" if initials are not available -->
+          <div class="dropdown-content">
+            <a href="/logout" class="logout">Logout</a>
+          </div>
+        </li>
+      <% } %>
+    </ul>
+  </nav>
+<body>
+    <div class="container">
+        <h1>Symptom Checker</h1>
+        <p>Input your symptoms to receive initial health suggestions or connect with a doctor.</p>
+
+        <!-- Symptom Form -->
+        <form action="/symptom/check" method="POST">
+            <label><input type="checkbox" name="symptoms" value="Fever"> Fever</label>
+            <label><input type="checkbox" name="symptoms" value="Cough"> Cough</label>
+            <label><input type="checkbox" name="symptoms" value="Headache"> Headache</label>
+            <label><input type="checkbox" name="symptoms" value="Fatigue"> Fatigue</label>
+            <label><input type="checkbox" name="symptoms" value="Sore Throat"> Sore Throat</label>
+            <label><input type="checkbox" name="symptoms" value="Shortness of Breath"> Shortness of Breath</label>
+            <label><input type="checkbox" name="symptoms" value="Chest Pain"> Chest Pain</label>
+            <label><input type="checkbox" name="symptoms" value="Nausea"> Nausea</label>
+            <label><input type="checkbox" name="symptoms" value="Vomiting"> Vomiting</label>
+            <label><input type="checkbox" name="symptoms" value="Diarrhea"> Diarrhea</label>
+            <label><input type="checkbox" name="symptoms" value="Constipation"> Constipation</label>
+            <label><input type="checkbox" name="symptoms" value="Joint Pain"> Joint Pain</label>
+            <label><input type="checkbox" name="symptoms" value="Back Pain"> Back Pain</label>
+            <label><input type="checkbox" name="symptoms" value="Dizziness"> Dizziness</label>
+            <label><input type="checkbox" name="symptoms" value="Swelling"> Swelling</label>
+            <label><input type="checkbox" name="symptoms" value="Blurred Vision"> Blurred Vision</label>
+            <label><input type="checkbox" name="symptoms" value="Leg Pain"> Leg Pain</label>
+            <label><input type="checkbox" name="symptoms" value="Hearing Loss"> Hearing Loss</label>
+            <label><input type="checkbox" name="symptoms" value="Abdominal Pain"> Abdominal Pain</label>
+            <label><input type="checkbox" name="symptoms" value="Night Sweats"> Night Sweats</label>
+            <label><input type="checkbox" name="symptoms" value="Loss of Appetite"> Loss of Appetite</label>
+            <label><input type="checkbox" name="symptoms" value="Insomnia"> Insomnia</label>
+            <button type="submit">Check Symptoms</button>
+        </form>
+
+        <% if (diseases.length > 0) { %>
+            <h2>Suggested Health Conditions</h2>
+            <ul>
+                <% diseases.forEach(function(disease) { %>
+                    <li><%= disease %></li>
+                <% }); %>
+            </ul>
+        <% } else { %>
+    
+        <% } %>
+
+
+    </div>
+</body>
+</html>

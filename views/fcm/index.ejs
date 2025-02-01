@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Medical Clinics Near Me</title>
+  <link rel="stylesheet" href="/fcm/styles.css">
+</head>
+
+<body>
+
+  <header>
+    
+    <h1>Find Free Medical Clinics Near You</h1>
+  </header>
+
+  <div class="appointment-form">
+    <form action="/fcm/search" method="POST">
+      <input type="text" name="location" placeholder="Enter your location" required>
+      <button type="submit">Search</button>
+    </form>
+  </div>
+
+  <!-- Display the content from fcm file if available -->
+  <% if (content) { %>
+    <div>
+      <h3>FCM File Content:</h3>
+      <p><%= content %></p>
+    </div>
+  <% } %>
+
+  <!-- Eligibility Criteria Section -->
+  <section>
+    <h2 class="section-title">Eligibility for Free Checkup</h2>
+    <ul class="eligibility-list">
+      <li>Any individual above 18 years old is eligible.</li>
+      <li>People with chronic health conditions (e.g., diabetes, hypertension) are prioritized.</li>
+      <li>Those without health insurance or limited access to healthcare are encouraged to apply.</li>
+      <li>Availability is subject to clinic capacity and local regulations.</li>
+    </ul>
+  </section>
+
+  <!-- Frequently Asked Questions Section -->
+  <section>
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <ul class="faq-list">
+      <li>
+        <strong>How long does the free checkup take?</strong>
+        <p>Typically, a free checkup takes 30-60 minutes, depending on the services provided.</p>
+      </li>
+      <li>
+        <strong>Can I bring a friend or family member?</strong>
+        <p>Yes, you may bring a companion. Please inform the clinic in advance.</p>
+      </li>
+      <li>
+        <strong>What services are included in the free checkup?</strong>
+        <p>Services may include basic health screenings (blood pressure, cholesterol, etc.), general health consultation, and referrals.</p>
+      </li>
+      <li>
+        <strong>Are follow-up visits covered?</strong>
+        <p>Follow-up visits may be subject to availability and clinic policies.</p>
+      </li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>&copy; 2024 Free Medical Clinics | All Rights Reserved</p>
+  </footer>
+
+</body>
+
+</html>

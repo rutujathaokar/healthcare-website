@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Labs Search</title>
+  <link rel="stylesheet" href="/fcm/styles.css">
+</head>
+<body>
+  
+  <h1>Labs Search</h1>
+  <form method="GET" action="/labs">
+    <input type="text" id="city" name="city" placeholder="Enter city">
+    <button type="submit" id="searchBtn">Search</button>
+  </form>
+
+  <!-- Display error message if passed from route -->
+  <% if (typeof error !== 'undefined' && error) { %>
+    <p style="color: red;"><%= error %></p>
+  <% } %>
+
+  <!-- Display labs list if there are labs -->
+  <% if (typeof labs !== 'undefined' && labs.length > 0) { %>
+    <div id="labList">
+      <% labs.forEach(function(lab) { %>
+        <div>
+          <h3><%= lab.name %></h3>
+          <p><strong>Location:</strong> <%= lab.location %></p>
+          <p><strong>Distance:</strong> <%= lab.distance %> km</p>
+        </div>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <p></p>
+  <% } %>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/medicinedelivery/style.css">
+    <title>Order Details</title>
+</head>
+<body>
+    <header>
+        <h1>Order Details</h1>
+    </header>
+    <main>
+        <% if (order) { %>
+            <h2>Order ID: <%= order.id %></h2>
+            <p><strong>Delivery Address:</strong> <%= order.delivery_address %></p>
+            <p><strong>Total Price:</strong> ₹<%= order.total_price %></p>
+            
+            <h3>Ordered Items:</h3>
+            <ul>
+                <% items.forEach(function(item) { %>
+                    <li>
+                        <strong><%= item.medicine_id %></strong> - ₹<%= item.price %> x <%= item.quantity %>
+                    </li>
+                <% }); %>
+            </ul>
+        <% } else { %>
+            <p>Order not found.</p>
+        <% } %>
+    </main>
+    <footer>
+        <p>&copy; 2024 Medicine Delivery</p>
+    </footer>
+</body>
+</html>

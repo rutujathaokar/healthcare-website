@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beds Availability</title>
+  <link rel="stylesheet" href="/beds/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Check Hospital Beds Availability</h1>
+  </header>
+
+  <main>
+    <!-- Search Form -->
+    <form action="/beds/search" method="POST">
+      <input type="text" name="location" placeholder="Enter your location" required>
+      <button type="submit">Search</button>
+    </form>
+
+    <!-- Display Error -->
+    <% if (error) { %>
+      <p style="color: red;"><%= error %></p>
+    <% } %>
+
+    <!-- Display Results -->
+    <% if (results.length > 0) { %>
+      <table>
+        <thead>
+          <tr>
+            <th>Hospital Name</th>
+            <th>Location</th>
+            <th>Available Beds</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% results.forEach((result) => { %>
+            <tr>
+              <td><%= result.hospital_name %></td>
+              <td><%= result.location %></td>
+              <td><%= result.available_beds %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </main>
+</body>
+</html>

@@ -1,0 +1,557 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar */
+nav {
+  background-color: #004aad;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav .logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+}
+
+nav ul li {
+  margin-left: 25px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #ffd700;
+  transform: scale(1.05);
+}
+
+/* Hero Section */
+.hero {
+  height: 70vh;
+  background: url('https://tint.creativemarket.com/V2HZhiHlTGWwGrYP8qdsGUyvsuw20-jMWjyxDMWgkS8/width:1820/height:1214/gravity:nowe/rt:fill-down/el:1/preset:cm_watermark_retina/czM6Ly9maWxlcy5jcmVhdGl2ZW1hcmtldC5jb20vaW1hZ2VzL3NjcmVlbnNob3RzL3Byb2R1Y3RzLzYxOC82MTg5LzYxODkzMTUvZHpyeDYyaDg2aWxnZWw4cTFtZWFva3dhOHRiMjZnd2M2ZWEzdnJweG1tZjE0d2Rwb205d3B0MXp6bmZpN2R1dC1vLmpwZw') no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  background-attachment: fixed;
+  background-size: cover;
+  position: relative;
+  padding: 0 10px;
+}
+
+.hero-text {
+  z-index: 2;
+}
+
+.hero-text h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.hero-text p {
+  margin-top: 15px;
+  font-size: 1.4rem;
+  font-weight: 400;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
+}
+
+/* Services Section */
+#services {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  padding: 50px 20px;
+  background-color: #f8f9fa;
+}
+
+.service-card {
+  width: 300px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.service-card h3 {
+  font-size: 1.6rem;
+  padding: 20px;
+  background: #004aad;
+  color: white;
+  text-align: center;
+}
+
+.service-card p {
+  padding: 15px;
+  font-size: 1rem;
+  color: #666;
+  text-align: justify;
+}
+
+.service-card .button {
+  display: block;
+  margin: 15px auto 20px;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  color: white;
+  background: #004aad;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.service-card .button:hover {
+  background: #00308f;
+}
+
+/* Testimonials Section */
+#testimonials {
+  background-color: #f8f9fa;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.testimonial {
+  background: white;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.testimonial p {
+  font-style: italic;
+}
+
+.testimonial span {
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+  color: #004aad;
+}
+
+/* FAQ Section */
+#faq {
+  padding: 50px 20px;
+}
+
+.faq-item {
+  background: white;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.faq-item h3 {
+  font-size: 1.3rem;
+  color: #004aad;
+}
+
+.faq-item p {
+  color: #666;
+}
+
+/* Call to Action Section */
+#cta {
+  background: #004aad;
+  color: white;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+#cta h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+#cta .button {
+  font-size: 1.2rem;
+  padding: 15px 40px;
+  margin-top: 10px;
+}
+
+/* Partners Section */
+#partners {
+  background-color: #f8f9fa;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.partner-logo img {
+  margin: 0 20px;
+  width: 120px;
+}
+
+/* Contact Section */
+#contact {
+  padding: 50px 20px;
+  background-color: #f8f9fa;
+  text-align: center;
+}
+
+#contact form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#contact input,
+#contact textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#contact button {
+  padding: 15px 25px;
+  background-color: #004aad;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#contact button:hover {
+  background-color: #00308f;
+}
+
+/* Newsletter Section */
+#newsletter {
+  padding: 50px 20px;
+  background-color: #004aad;
+  color: white;
+  text-align: center;
+}
+
+#newsletter input {
+  padding: 12px 20px;
+  width: 300px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+#newsletter button {
+  padding: 12px 25px;
+  background-color: #ffd700;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Blog Section */
+#blog {
+  padding: 50px 20px;
+}
+
+.blog-post {
+  background: white;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.blog-post h3 {
+  color: #004aad;
+}
+
+.blog-post p {
+  color: #666;
+}
+
+.blog-post .button {
+  margin-top: 10px;
+}
+
+/* Social Media Section */
+#social-media {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+#social-media a {
+  margin: 0 10px;
+}
+
+#social-media img {
+  width: 40px;
+  height: 40px;
+}
+
+/* Footer Section */
+footer {
+  background: #004aad;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 50px;
+  font-size: 1rem;
+}
+
+.welcome-message {
+  font-weight: bold;
+  color: #4CAF50;
+  margin-left: 20px;
+}
+
+.welcome-message span {
+  color: #ffd700;
+}
+
+/* Buttons */
+.button {
+  display: inline-block;
+  padding: 12px 25px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #004aad;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+  /* Styling for the initials logo */
+  .user-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #3498db;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    position: relative;
+    font-weight: bold;
+  }
+
+  .user-logo:hover {
+    background-color: #2980b9;
+  }
+
+  /* Dropdown menu styling */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+
+  /* Show the dropdown when the user hovers over the logo */
+  .user-logo:hover .dropdown-content {
+    display: block;
+  }
+
+  /* Styling for the logout button */
+  .logout {
+    color: #e74c3c;
+  }
+
+  /* Reviews Section */
+#reviews {
+  margin-top: 50px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+}
+
+/* Form styling */
+#reviews form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+#reviews form input,
+#reviews form textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
+}
+
+#reviews form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+#reviews form button {
+  background-color:  #004aad;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+#reviews form button:hover {
+  background-color: #2980b9;
+}
+
+/* Review List Styling */
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.reviews-list .review {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.reviews-list .review p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.reviews-list .review strong {
+  font-weight: bold;
+  color:  #004aad;
+}
+
+.reviews-list .review p:last-child {
+  font-style: italic;
+  color: #888;
+}
+
+ /* Remote Monitoring Section */
+#remote-monitoring {
+  padding: 50px 20px;
+  background-color: #f8f9fa;
+  text-align: center;
+}
+
+#remote-monitoring h2 {
+  font-size: 2.5rem;
+  color: #004aad;
+  margin-bottom: 40px;
+}
+
+.remote-monitoring-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+/* Individual Cards */
+#remote-monitoring .service-card {
+  width: 300px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s ease;
+  cursor: pointer;
+  text-align: left;
+}
+
+#remote-monitoring .service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+#remote-monitoring .service-card h3 {
+  font-size: 1.6rem;
+  padding: 15px;
+  background: #004aad;
+  color: white;
+  border-radius: 15px 15px 0 0;
+  text-align: center;
+}
+
+#remote-monitoring .service-card p {
+  padding: 15px;
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+#remote-monitoring .service-card .button {
+  display: block;
+  margin: 15px auto 20px;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  color: white;
+  background: #004aad;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  text-align: center;
+  text-decoration: none;
+}
+
+#remote-monitoring .service-card .button:hover {
+  background: #00308f;
+}
